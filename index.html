@@ -3,11 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- SEO és megosztás meta -->
+  <meta name="description" content="Kávézó demó weboldal – prémium megjelenés, modern reszponzív design. Bemutató projekt webfejlesztő referencia célra.">
+  <meta property="og:title" content="Kávézó Demo">
+  <meta property="og:description" content="Modern, letisztult kávézó weboldal – referencia bemutató.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="demo-weboldal-preview.jpg">
   <title>Kávézó Demo</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;900&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
-
   <style>
     :root {
       --barna: #4B2E00;
@@ -15,6 +20,7 @@
       --krem: #F7E9D7;
       --arany: #C19A6B;
       --sotetzold: #2C3E25;
+      --hover: #2C3E25;
     }
     body {
       margin: 0;
@@ -22,6 +28,7 @@
       background: var(--krem);
       color: var(--barna);
       line-height: 1.6;
+      scroll-behavior: smooth;
     }
     h1, h2, h3 {
       font-family: 'Playfair Display', serif;
@@ -30,10 +37,11 @@
     a {
       color: var(--arany);
       text-decoration: none;
-      transition: color 0.3s ease;
+      transition: color 0.3s, letter-spacing 0.2s;
     }
-    a:hover {
-      color: var(--sotetzold);
+    a:hover, a:focus {
+      color: var(--hover);
+      letter-spacing: 0.06em;
     }
     button {
       background: var(--arany);
@@ -44,13 +52,13 @@
       font-weight: bold;
       cursor: pointer;
       border-radius: 30px;
-      transition: background-color 0.3s, transform 0.3s, box-shadow 0.23s;
+      transition: background 0.3s, color 0.3s, transform 0.3s, box-shadow 0.23s;
       box-shadow: 0 2px 8px rgba(193,154,107,0.17);
     }
-    button:hover {
-      background: var(--sotetzold);
-      transform: scale(1.05);
+    button:hover, button:focus {
+      background: var(--hover);
       color: var(--beige);
+      transform: scale(1.05);
       box-shadow: 0 8px 18px rgba(44,62,37,.11);
     }
     button:active {
@@ -62,8 +70,6 @@
       margin: 0 auto;
       padding: 1em 2em;
     }
-
-    /* ---------------- NAVIGÁCIÓ --------------------- */
     nav.navbar {
       position: sticky;
       top: 0;
@@ -100,11 +106,10 @@
       font-weight: 600;
       font-size: 1rem;
       padding: 0.6em 0.2em;
-      transition: color 0.3s, letter-spacing 0.2s;
+      transition: background 0.3s, color 0.3s, letter-spacing 0.2s;
     }
-    nav.navbar ul li a:hover {
-      color: var(--arany);
-      letter-spacing: 0.06em;
+    nav.navbar ul li a:hover, nav.navbar ul li a:focus {
+      color: var(--hover);
     }
     nav.navbar .social-icons {
       display: flex;
@@ -118,10 +123,9 @@
       fill: var(--beige);
       transition: fill 0.3s;
     }
-    nav.navbar .social-icons a:hover {
+    nav.navbar .social-icons a:hover, nav.navbar .social-icons a:focus {
       fill: var(--arany);
     }
-
     /* Hamburger */
     #menu-toggle { display: none; }
     .menu-icon {
@@ -131,6 +135,11 @@
       cursor: pointer;
       margin-right: 0.7em;
       z-index: 1020;
+      width: 34px;
+      height: 34px;
+      justify-content: center;
+      align-items: center;
+      transition: transform 0.3s;
     }
     .menu-icon span {
       width: 26px;
@@ -140,8 +149,18 @@
       display: block;
       transition: all 0.36s cubic-bezier(.17,.63,.42,.95);
     }
+    /* Hamburger animált váltás */
+    #menu-toggle:checked + .menu-icon span:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+    #menu-toggle:checked + .menu-icon span:nth-child(2) {
+      opacity: 0;
+    }
+    #menu-toggle:checked + .menu-icon span:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
 
-    /* ----------- HERO DINAMIKA + PARALLAX ----------- */
+    /* ----------- HERO PARALLAX + FEJLESZTÉSEK ----------- */
     .hero {
       position: relative;
       height: 90vh;
@@ -210,9 +229,7 @@
       animation: steamAppear 1s 1.2s forwards;
       z-index: 2;
     }
-    @keyframes steamAppear {
-      to { opacity: 1; }
-    }
+    @keyframes steamAppear { to { opacity: 1; } }
     .steam div {
       position: absolute;
       bottom: 0;
@@ -227,7 +244,6 @@
     .steam div:nth-child(1) { left: 10px; animation-delay: 0s; }
     .steam div:nth-child(2) { left: 30px; animation-delay: 1s; height: 50px;}
     .steam div:nth-child(3) { left: 50px; animation-delay: 1.5s;}
-
     @keyframes steamRise {
       0%   { bottom: 0; opacity: 0.6; transform: scale(0.7) translateX(0);}
       50%  { opacity: 0.3; transform: scale(1) translateX(5px);}
@@ -270,6 +286,7 @@
       object-fit: cover;
       display: block;
       transition: filter 0.5s cubic-bezier(0.19,1,0.22,1), transform 0.4s cubic-bezier(0.19,1,0.22,1);
+      aspect-ratio: 4 / 3;
     }
     .menu-item:hover img {
       filter: brightness(1.07) contrast(1.08) saturate(1.15);
@@ -283,7 +300,6 @@
       margin: 0 0 0.3em;
     }
 
-    /* --------- About section + shadow ------------ */
     section.about {
       margin: 3em 0;
       display: flex;
@@ -294,20 +310,14 @@
     section.about .text {
       flex: 1 1 300px;
     }
-    section.about .text h2 {
-      margin-bottom: 0.5em;
-      color: var(--sotetzold);
-    }
-    section.about .text p {
-      font-style: italic;
-    }
+    section.about .text h2 { margin-bottom: 0.5em; color: var(--sotetzold);}
+    section.about .text p { font-style: italic; }
     section.about img {
       flex: 1 1 300px;
       border-radius: 12px;
       max-width: 100%;
       box-shadow: 0 6px 28px rgba(44, 62, 37, 0.13), 0 1.5px 8px rgba(75, 46, 0, 0.12);
     }
-    /* ----------- Contact szekció + árnyék --------- */
     section.contact {
       background: var(--beige);
       padding: 2em;
@@ -315,11 +325,7 @@
       margin-bottom: 3em;
       box-shadow: 0 6px 28px rgba(44, 62, 37, 0.13);
     }
-    section.contact h2 {
-      text-align: center;
-      margin-bottom: 1em;
-      color: var(--sotetzold);
-    }
+    section.contact h2 { text-align: center; margin-bottom: 1em; color: var(--sotetzold);}
     .contact-info {
       display: flex;
       flex-wrap: wrap;
@@ -331,9 +337,7 @@
       border-radius: 10px;
       padding: 1.1em 0.9em;
     }
-    .contact-info div {
-      flex: 1 1 200px;
-    }
+    .contact-info div { flex: 1 1 200px; }
     iframe {
       border: none;
       width: 100%;
@@ -371,12 +375,12 @@
       cursor: pointer;
       margin-top: 0.6em;
       margin-bottom: 0.4em;
+      transition: background 0.3s, color 0.3s;
     }
-    button.submit-btn:hover {
+    button.submit-btn:hover, button.submit-btn:focus {
       background: var(--arany);
       color: var(--barna);
     }
-
     .social-links {
       text-align: center;
       margin-top: 2em;
@@ -384,13 +388,50 @@
       font-weight: bold;
       font-family: 'Open Sans', sans-serif;
     }
-    .social-links p {
-      margin: 0.2em 0;
+    .social-links p { margin: 0.2em 0; }
+
+    /* --- Scroll to top gomb --- */
+    #scrollToTopBtn {
+      display: none;
+      position: fixed;
+      right: 24px;
+      bottom: 28px;
+      z-index: 1024;
+      width: 44px;
+      height: 44px;
+      border: none;
+      border-radius: 50%;
+      background: var(--arany);
+      color: var(--beige);
+      box-shadow: 0 2px 16px rgba(44,62,37,0.18);
+      cursor: pointer;
+      font-size: 1.8em;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.18s, transform 0.15s;
+      opacity: 0.85;
+    }
+    #scrollToTopBtn:hover {
+      background: var(--hover);
+      color: var(--beige);
+      transform: translateY(-4px) scale(1.12);
+      opacity: 1;
     }
 
-    /* ---------------- Mobil reszponzivitás ------------------ */
+    /* --- Lábléc --- */
+    footer {
+      text-align: center;
+      color: var(--beige);
+      background: var(--barna);
+      font-size: 1rem;
+      margin-top: 2em;
+      padding: 1.2em 0 0.7em 0;
+      letter-spacing: 0.02em;
+    }
+
+    /* ---------------- Mobil fejlesztések ------------------ */
     @media (max-width: 1024px) {
-      .hero { background-attachment: scroll; }
+      .hero { background-attachment: scroll;}
     }
     @media (max-width: 768px) {
       nav.navbar {
@@ -412,33 +453,60 @@
         gap: 2em;
         padding: 1.4em 0;
       }
-      #menu-toggle:checked + .menu-icon + ul {
-        display: flex;
-      }
-      nav.navbar ul li {
-        margin-bottom: 0.6em;
-      }
+      #menu-toggle:checked + .menu-icon + ul { display: flex;}
+      nav.navbar ul li { margin-bottom: 0.6em; }
       nav.navbar .social-icons {
         justify-content: center;
         margin: 0.6em 0;
         gap: 1.8em;
       }
-      .hero h1 { font-size: 2.3rem; }
-      .hero p { font-size: 1.1rem; }
-      .container { padding: 0.6em 0.6em; }
+      .hero h1 { font-size: 2.3rem;}
+      .hero p { font-size: 1.1rem;}
+      .container { padding: 0.6em 0.6em;}
       section.about { flex-direction: column; gap: 1.2em;}
-      section.about img { max-width: 100%; }
-      .menu-grid { grid-template-columns: 1fr; }
-      .menu-item img { height: 240px; }
+      section.about img { max-width: 100%;}
+      .menu-grid { grid-template-columns: 1fr;}
+      .menu-item img { height: 240px;}
       .menu-desc p, .about .text p {
         font-size: 1.07rem;
         margin-bottom: 1.1em;
         max-width: 98vw;
       }
       form { gap: 1.35em; }
-      button.submit-btn { margin-bottom: 1em; }
+      button.submit-btn { margin-bottom: 1em;}
+      .steam { max-width: 60px;}
+    }
+    @media (max-width: 380px) {
+      .steam {max-width: 48px;}
     }
   </style>
+  <!-- Parallax és overflow JS fejlesztések beégetve -->
+  <script>
+    // MENU open/close UX: BODY overflow lock
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuToggle = document.getElementById('menu-toggle');
+      menuToggle.addEventListener('change', function() {
+        document.body.style.overflow = this.checked ? 'hidden' : '';
+      });
+      // Parallax effekt alternatíva kisebb képernyőn
+      if(window.innerWidth > 1024){
+        window.addEventListener('scroll', function(){
+          const hero = document.querySelector('.hero');
+          if(hero){
+            let offset = window.scrollY * 0.2;
+            hero.style.backgroundPosition = `center calc(50% + ${offset}px)`;
+          }
+        });
+      }
+      // Scroll to top button
+      const scrollBtn = document.getElementById('scrollToTopBtn');
+      window.addEventListener('scroll', function() {
+        if(window.scrollY > 350) { scrollBtn.style.display = 'flex'; }
+        else { scrollBtn.style.display = 'none'; }
+      });
+      scrollBtn.onclick = function(){ window.scrollTo({top: 0, behavior: 'smooth'}); }
+    });
+  </script>
 </head>
 <body>
 <nav class="navbar" role="navigation" aria-label="Fő navigáció">
@@ -477,21 +545,22 @@
     <h2 id="menu-title">Menü</h2>
     <div class="menu-grid">
       <article class="menu-item" tabindex="0" aria-label="Kávé - Espresso">
-        <img src="demo-weboldal-kave-2-kep.webp" alt="Egy csésze forró espresso kávé" loading="lazy" />
+        <!-- CLS optimalizáció: width/height -->
+        <img src="demo-weboldal-kave-2-kep.webp" alt="Egy csésze forró espresso kávé" loading="lazy" width="320" height="240" />
         <div class="menu-desc">
           <h3>Espresso</h3>
           <p>Egy sűrű, gazdag kávé, mely barátságos légkört teremt és minden kortyával feltölt energiával.</p>
         </div>
       </article>
       <article class="menu-item" tabindex="0" aria-label="Tea - Zöld tea">
-        <img src="demo-weboldal-tea-1.webp" alt="Egy csésze zöld tea" loading="lazy" />
+        <img src="demo-weboldal-tea-1.webp" alt="Egy csésze zöld tea" loading="lazy" width="320" height="240" />
         <div class="menu-desc">
           <h3>Zöld tea</h3>
           <p>Finom, frissítő, különösen alkalmas a kávé mellett egy nyugodt pillanatra.</p>
         </div>
       </article>
       <article class="menu-item" tabindex="0" aria-label="Croissant">
-        <img src="demo-weboldal-croissant-kep-1.webp" alt="Friss croissant" loading="lazy" />
+        <img src="demo-weboldal-croissant-kep-1.webp" alt="Friss croissant" loading="lazy" width="320" height="240" />
         <div class="menu-desc">
           <h3>Croissant</h3>
           <p>Friss, vajas és omlós péksütemény ínyenceknek.</p>
@@ -520,11 +589,12 @@
       <div style="flex:2;">
         <iframe 
           title="Kávézó helye térképen" 
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2689.5120976984816!2d19.04023571581849!3d47.4979129791854!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4741dcacd758f4ab%3A0x280f78801e9d03b1!2sKávézó!5e0!3m2!1shu!2shu!4v1695341700000!5m2!1shu!2shu" 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2689.5120976984816!2d19.04023571581849!3d47.4979129791854!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4741dcacd758f4ab%3A0x280f78801e9d03b1!2sKávézó!5e0!3m2!1shu!2shu!4v1695341700000!5m2!1hu!2hu" 
           allowfullscreen="" loading="lazy"></iframe>
       </div>
     </div>
-    <form aria-label="Asztalfoglalási űrlap">
+    <form aria-label="Asztalfoglalási űrlap"
+      onsubmit="event.preventDefault(); alert('Köszönjük az üzenetet! (Demó)');">
       <input type="text" name="name" placeholder="Név" required aria-required="true" />
       <input type="email" name="email" placeholder="E-mail" required aria-required="true" />
       <textarea name="message" rows="4" placeholder="Üzenet" required aria-required="true"></textarea>
@@ -535,7 +605,15 @@
       <p>@demotiktokkavezo | @demoinstagramkavezo | @demofacebookkavezo</p>
     </div>
   </section>
-
 </main>
+
+<button id="scrollToTopBtn" title="Vissza a tetejére" aria-label="Vissza a tetejére"
+  style="display: flex;align-items:center;justify-content:center;">
+  &#8679;
+</button>
+
+<footer>
+  © 2025 Demo Kávézó | Készült referencia célra
+</footer>
 </body>
 </html>
